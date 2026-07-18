@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>~/portfolio — Nhập môn Công nghệ số &amp; AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FDF3F6;
+    --bg-alt:#FBE6EE;
+    --ink:#5B3A4B;
+    --ink-soft:#9A7688;
+    --line:#F2D3DF;
+    --teal:#D46A8E;
+    --orange:#E8899F;
+    --card:#FFFBFD;
+    --mono:'JetBrains Mono', monospace;
+    --serif:'Fraunces', serif;
+    --sans:'Inter', sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.6;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:48px 48px;
+    background-attachment:fixed;
+  }
+  a{color:inherit;}
+  .wrap{max-width:920px; margin:0 auto; padding:0 24px;}
+
+  /* ---- NAV ---- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(253,243,246,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .brand{font-family:var(--mono); font-size:13px; font-weight:600; letter-spacing:0.02em;}
+  .brand .dir{color:var(--ink-soft);}
+  .navlinks{display:flex; gap:22px; font-family:var(--mono); font-size:12px;}
+  .navlinks a{text-decoration:none; color:var(--ink-soft); padding:4px 0; border-bottom:2px solid transparent;}
+  .navlinks a:hover{color:var(--ink); border-color:var(--orange);}
+
+  /* ---- HERO ---- */
+  header.hero{padding:80px 0 60px;}
+  .hero-flex{display:flex; align-items:center; gap:44px;}
+  @media(max-width:700px){.hero-flex{flex-direction:column; text-align:center;}}
+  .avatar-wrap{flex-shrink:0;}
+  .avatar{
+    width:168px; height:168px; border-radius:50%;
+    object-fit:cover;
+    object-position:center 25%;
+    border:6px solid var(--card);
+    box-shadow:0 10px 30px -8px rgba(212,106,142,0.35), 0 0 0 3px var(--orange);
+  }
+  .avatar-placeholder{
+    width:168px; height:168px; border-radius:50%;
+    border:6px solid var(--card);
+    box-shadow:0 10px 30px -8px rgba(212,106,142,0.35), 0 0 0 3px var(--orange);
+    background:linear-gradient(135deg, #F6BBD0, #F2D3DF);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--serif); font-size:52px; font-weight:600; color:#fff;
+  }
+  .hero-text{flex:1;}
+  .path{font-family:var(--mono); font-size:12px; color:var(--teal); letter-spacing:0.03em; margin-bottom:14px;}
+  .path::before{content:"$ cd "; color:var(--ink-soft);}
+  h1{
+    font-family:var(--serif); font-weight:600;
+    font-size:clamp(32px, 5vw, 48px);
+    line-height:1.15; letter-spacing:-0.01em;
+  }
+  h1 em{font-style:italic; color:var(--teal);}
+  .hero-sub{margin-top:16px; max-width:56ch; font-size:16.5px; color:var(--ink-soft);}
+  .hero-meta{margin-top:26px; display:flex; gap:28px; flex-wrap:wrap; font-family:var(--mono); font-size:12px;}
+  @media(max-width:700px){.hero-meta{justify-content:center;}}
+  .hero-meta div{border-left:2px solid var(--orange); padding-left:10px;}
+  .hero-meta .k{color:var(--ink-soft); display:block; text-transform:uppercase; letter-spacing:0.06em; font-size:10px;}
+  .hero-meta .v{color:var(--ink); font-weight:600; margin-top:2px;}
+
+  /* ---- SECTION HEADERS ---- */
+  section{padding:56px 0;}
+  .sec-head{display:flex; align-items:baseline; gap:14px; margin-bottom:34px; border-bottom:1px solid var(--line); padding-bottom:14px;}
+  .sec-num{font-family:var(--mono); font-size:13px; color:var(--orange); font-weight:700;}
+  .sec-title{font-family:var(--serif); font-size:28px; font-weight:600;}
+  .sec-desc{color:var(--ink-soft); margin-bottom:30px; max-width:64ch;}
+
+  /* ---- INTRO GRID ---- */
+  .intro-grid{display:grid; grid-template-columns:1.1fr 1fr; gap:40px;}
+  @media(max-width:760px){.intro-grid{grid-template-columns:1fr;}}
+  .field{margin-bottom:22px;}
+  .field .label{font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--teal); margin-bottom:6px;}
+  .field .content{font-size:15.5px;}
+  .editable{
+    background:var(--card); border:1px dashed var(--line);
+    border-radius:4px; padding:14px 16px; color:var(--ink-soft); font-style:italic; font-size:14px;
+  }
+  .goal-list{list-style:none;}
+  .goal-list li{position:relative; padding-left:22px; margin-bottom:10px; font-size:15px;}
+  .goal-list li::before{content:"→"; position:absolute; left:0; color:var(--orange); font-weight:700;}
+
+  /* ---- FILE CARDS (projects) ---- */
+  .file-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:6px;
+    margin-bottom:22px;
+    overflow:hidden;
+    transition:border-color .2s ease, box-shadow .2s ease;
+  }
+  .file-card:hover{border-color:var(--teal); box-shadow:0 4px 18px -8px rgba(27,42,74,0.18);}
+  .file-head{
+    display:flex; align-items:center; gap:12px;
+    padding:16px 20px;
+    border-bottom:1px solid var(--line);
+    background:var(--bg-alt);
+  }
+  .file-icon{
+    font-family:var(--mono); font-size:11px; font-weight:700;
+    background:var(--ink); color:var(--bg);
+    padding:3px 8px; border-radius:3px; flex-shrink:0;
+  }
+  .file-title{font-family:var(--serif); font-size:19px; font-weight:600; flex:1;}
+  .file-path{font-family:var(--mono); font-size:11px; color:var(--ink-soft);}
+  .file-body{padding:20px;}
+  .file-body .row{display:grid; grid-template-columns:150px 1fr; gap:14px; margin-bottom:14px; font-size:14.5px;}
+  .file-body .row .k{font-family:var(--mono); font-size:11px; color:var(--teal); text-transform:uppercase; letter-spacing:0.05em; padding-top:2px;}
+  @media(max-width:600px){.file-body .row{grid-template-columns:1fr; gap:4px;}}
+  .attach{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:var(--mono); font-size:12px; color:var(--orange);
+    border:1px solid var(--orange); border-radius:4px; padding:6px 10px; margin-top:4px;
+    text-decoration:none;
+  }
+
+  /* ---- TONG KET ---- */
+  .reflect-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+  @media(max-width:700px){.reflect-grid{grid-template-columns:1fr;}}
+  .reflect-card{background:var(--card); border:1px solid var(--line); border-radius:6px; padding:22px;}
+  .reflect-card .icon{font-family:var(--mono); color:var(--orange); font-size:12px; margin-bottom:10px; letter-spacing:0.05em;}
+  .reflect-card h3{font-family:var(--serif); font-size:18px; margin-bottom:10px; font-weight:600;}
+
+  footer{padding:50px 0 80px; border-top:1px solid var(--line); margin-top:30px;}
+  footer .wrap{font-family:var(--mono); font-size:12px; color:var(--ink-soft); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+
+  .howto{
+    background:var(--ink); color:var(--bg);
+    border-radius:8px; padding:24px 26px; margin-top:10px;
+  }
+  .howto h4{font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:0.06em; color:#F2C4D4; margin-bottom:10px;}
+  .howto p{font-size:13.5px; color:#EAD8DF; margin-bottom:8px;}
+  .howto code{background:rgba(255,255,255,0.1); padding:1px 5px; border-radius:3px; font-family:var(--mono);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand"><span class="dir">~/</span>portfolio</div>
+    <div class="navlinks">
+      <a href="#gioithieu">01 · Giới thiệu</a>
+      <a href="#duan">02 · Dự án</a>
+      <a href="#tongket">03 · Tổng kết</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-flex">
+      <div class="avatar-wrap">
+        <img class="avatar" src="./anh-chan-dung.jpg" alt="Ảnh chân dung Tạ Trà My">
+      </div>
+      <div class="hero-text">
+        <div class="path">gioi-thieu-ban-than</div>
+        <h1>Xin chào, mình là <em>Tạ Trà My</em> 🎀</h1>
+        <p class="hero-sub">Hiện tại mình đang là sinh viên ngành Quản trị Kinh doanh. Đây là Portfolio cá nhân của mình — nơi lưu lại những kỹ năng số mình đã học được trong suốt môn học.</p>
+        <div class="hero-meta">
+          <div><span class="k">Họ tên</span><span class="v">Tạ Trà My</span></div>
+          <div><span class="k">Ngành học</span><span class="v">Quản trị kinh doanh</span></div>
+          <div><span class="k">Trường</span><span class="v">Trường Đại học Kinh tế - ĐHQGHN</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="gioithieu">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">01</span><span class="sec-title">Trang Giới thiệu</span></div>
+    <p class="sec-desc">Vài dòng ngắn gọn về bạn — con người phía sau các sản phẩm số dưới đây.</p>
+
+    <div class="intro-grid">
+      <div>
+        <div class="field">
+          <div class="label">Về tôi</div>
+          <div class="content">Mình tên là Tạ Trà My, hiện đang là sinh viên ngành Quản trị Kinh doanh. Mình là người khá cởi mở, thích tìm hiểu những điều mới và luôn muốn học hỏi để hoàn thiện bản thân. Ngoài thời gian học, mình rất thích nhảy và nghe nhạc vì những sở thích này giúp mình thư giãn, giải tỏa căng thẳng và nạp lại năng lượng sau những giờ học. Mình mong trong thời gian học tập sẽ có cơ hội làm quen với nhiều bạn mới, tích lũy thêm nhiều kiến thức và kỹ năng để chuẩn bị tốt cho công việc trong tương lai.</div>
+        </div>
+        <div class="field">
+          <div class="label">Mục tiêu học tập &amp; định hướng</div>
+          <div class="content">Trong 1–2 năm tới, mình mong muốn được học sâu hơn về quản trị nhân lực vì mình rất quan tâm đến cách xây dựng, phát triển và quản lý con người trong doanh nghiệp. Bên cạnh kiến thức chuyên môn, mình cũng muốn rèn luyện thêm các kỹ năng xã hội và kỹ năng mềm như giao tiếp, làm việc nhóm, thuyết trình và giải quyết vấn đề để tự tin hơn trong học tập cũng như công việc. Mình hy vọng sẽ có cơ hội tham gia nhiều hoạt động thực tế, câu lạc bộ hoặc các dự án để tích lũy kinh nghiệm. Những mục tiêu này sẽ là nền tảng giúp mình phát triển bản thân và chuẩn bị tốt hơn cho công việc sau khi tốt nghiệp.</div>
+        </div>
+      </div>
+      <div>
+        <div class="field">
+          <div class="label">Mục tiêu của Portfolio này</div>
+          <ul class="goal-list">
+            <li>Thể hiện các kỹ năng số đã học được trong môn học</li>
+            <li>Lưu trữ sản phẩm cá nhân để dễ dàng truy cập và chia sẻ</li>
+            <li>Xây dựng một nơi lưu trữ gọn gàng, có thể cập nhật thêm dự án mới trong tương lai</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="duan">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">02</span><span class="sec-title">Trang Dự án</span></div>
+    <p class="sec-desc">6 bài tập được biên tập lại theo cấu trúc: mục tiêu → tóm tắt quá trình → sản phẩm cuối cùng.</p>
+
+    <!-- BÀI 1 -->
+    <div class="file-card">
+      <div class="file-head">
+        <span class="file-icon">01</span>
+        <span class="file-title">Máy tính &amp; các thiết bị ngoại vi</span>
+        <span class="file-path">bai-01/thao-tac-tep-tin.md</span>
+      </div>
+      <div class="file-body">
+        <div class="row"><span class="k">Mục tiêu</span><span>Thao tác cơ bản với tệp tin và thư mục — xây dựng cấu trúc lưu trữ khoa học.</span></div>
+        <div class="row"><span class="k">Quá trình</span><span>Mình bắt đầu bằng việc khảo sát lại toàn bộ dữ liệu học tập đang lưu trữ rời rạc trên máy tính để lên kế hoạch sắp xếp lại. Sau đó, mình xây dựng một cây thư mục theo cấp bậc: môn học → chương/bài → loại tài liệu (bài giảng, bài tập, tài liệu tham khảo), giúp việc tìm kiếm về sau dễ dàng hơn. Mình đặt ra quy tắc đặt tên tệp thống nhất, gồm mã môn học, số thứ tự bài và nội dung ngắn gọn, tránh dùng ký tự đặc biệt hay khoảng trắng gây lỗi khi đồng bộ. Trong quá trình thực hiện, mình cũng thực hành các thao tác cơ bản như tạo, di chuyển, đổi tên và xóa tệp/thư mục để làm quen với hệ thống quản lý tệp. Cuối cùng, mình chụp lại ảnh minh họa cấu trúc thư mục đã hoàn thiện để làm bằng chứng cho quá trình thực hiện. Qua bài tập này, mình nhận ra việc tổ chức tệp tin khoa học ngay từ đầu giúp tiết kiệm rất nhiều thời gian tra cứu về sau.</span></div>
+        <div class="row"><span class="k">Sản phẩm</span><span><a class="attach" href="https://docs.google.com/document/d/1r1wW0RE9PCCRMyCSyJ0ffX7B4SA9Jbc4/edit?usp=drive_link&ouid=107097168109102270095&rtpof=true&sd=true" target="_blank">📎 Bài 1. Thao tác cơ bản với tệp tin và thư mục.docx</a></span></div>
+      </div>
+    </div>
+
+    <!-- BÀI 2 -->
+    <div class="file-card">
+      <div class="file-head">
+        <span class="file-icon">02</span>
+        <span class="file-title">Khai thác dữ liệu &amp; thông tin</span>
+        <span class="file-path">bai-02/tim-kiem-hoc-thuat.md</span>
+      </div>
+      <div class="file-body">
+        <div class="row"><span class="k">Mục tiêu</span><span>Tìm kiếm và đánh giá thông tin học thuật bằng các toán tử nâng cao.</span></div>
+        <div class="row"><span class="k">Quá trình</span><span>Mình bắt đầu bằng việc xác định rõ chủ đề cần tìm kiếm thông tin học thuật và đặt ra các từ khóa chính liên quan. Sau đó, mình thực hành sử dụng các toán tử tìm kiếm nâng cao như dấu ngoặc kép, dấu trừ, hoặc AND/OR để thu hẹp và làm chính xác hơn kết quả tìm được. Mình cũng thử tìm kiếm trên nhiều nguồn khác nhau như Google Scholar và các cơ sở dữ liệu học thuật để so sánh chất lượng thông tin. Trong quá trình này, mình học cách đánh giá độ tin cậy của từng nguồn dựa trên tác giả, năm xuất bản, và mức độ được trích dẫn. Cuối cùng, mình tổng hợp lại thành một bảng đánh giá nguồn tin, ghi rõ ưu nhược điểm của từng nguồn đã tìm được. Qua bài tập này, mình nhận ra việc tìm kiếm thông tin học thuật hiệu quả không chỉ nằm ở kỹ năng tra cứu mà còn ở khả năng chọn lọc và đánh giá nguồn tin một cách có phê phán.</span></div>
+        <div class="row"><span class="k">Sản phẩm</span><span><a class="attach" href="https://drive.google.com/file/d/1eQxz0WvhrI_QKNJdIx0RgNYVXoSNVZpg/view?usp=sharing" target="_blank">📎 Bài 2. Tìm kiếm và đánh giá thông tin học thuật</a></span></div>
+      </div>
+    </div>
+
+    <!-- BÀI 3 -->
+    <div class="file-card">
+      <div class="file-head">
+        <span class="file-icon">03</span>
+        <span class="file-title">Tổng quan về Trí tuệ nhân tạo</span>
+        <span class="file-path">bai-03/viet-prompt-hieu-qua.md</span>
+      </div>
+      <div class="file-body">
+        <div class="row"><span class="k">Mục tiêu</span><span>Viết Prompt hiệu quả cho các tác vụ học tập.</span></div>
+        <div class="row"><span class="k">Quá trình</span><span>Mình bắt đầu bằng việc thử đặt một Prompt đơn giản, mang tính chung chung cho một tác vụ học tập cụ thể để xem AI phản hồi như thế nào. Sau khi nhận thấy kết quả còn mơ hồ, chưa sát với nhu cầu thực tế, mình phân tích lại và bổ sung thêm ngữ cảnh, vai trò, định dạng đầu ra mong muốn cũng như các ví dụ minh họa cụ thể hơn. Mình thử nghiệm nhiều lần, mỗi lần điều chỉnh một vài yếu tố trong Prompt để quan sát sự thay đổi của kết quả đầu ra. Qua đó, mình nhận ra rằng Prompt càng rõ ràng, chi tiết và có cấu trúc thì AI càng trả lời chính xác và hữu ích hơn. Cuối cùng, mình tổng hợp lại thành bảng so sánh giữa Prompt ban đầu và Prompt đã cải tiến, kèm theo kết quả đầu ra tương ứng của từng phiên bản. Bài tập này giúp mình hiểu rằng viết Prompt hiệu quả là một kỹ năng cần rèn luyện, không chỉ đơn thuần là đặt câu hỏi cho AI.</span></div>
+        <div class="row"><span class="k">Sản phẩm</span><span><a class="attach" href="https://drive.google.com/file/d/15L9ZqhWv0N9hCkWy8bbxQXP8gN02qr19/view?usp=sharing" target="_blank">📎 Bài 3. Viết Prompt hiệu quả cho các tác vụ học tập</a></span></div>
+      </div>
+    </div>
+
+    <!-- BÀI 4 -->
+    <div class="file-card">
+      <div class="file-head">
+        <span class="file-icon">04</span>
+        <span class="file-title">Giao tiếp &amp; hợp tác trong môi trường số</span>
+        <span class="file-path">bai-04/cong-cu-hop-tac.md</span>
+      </div>
+      <div class="file-body">
+        <div class="row"><span class="k">Mục tiêu</span><span>Sử dụng công cụ hợp tác trực tuyến cho dự án nhóm.</span></div>
+        <div class="row"><span class="k">Quá trình</span><span>Mình cùng nhóm bắt đầu bằng việc lựa chọn một công cụ hợp tác trực tuyến phù hợp với tính chất dự án và phân công vai trò rõ ràng cho từng thành viên. Trong quá trình làm việc, nhóm sử dụng công cụ này để cùng chỉnh sửa tài liệu, để lại bình luận, góp ý trực tiếp trên bản nháp và theo dõi tiến độ chung theo thời gian thực. Mình học được cách giao tiếp hiệu quả trong môi trường số, bao gồm việc đặt câu hỏi rõ ràng, phản hồi góp ý mang tính xây dựng và tổng hợp ý kiến từ nhiều thành viên. Nhóm cũng gặp một vài khó khăn về đồng bộ tiến độ, nhưng đã giải quyết bằng cách thống nhất lịch làm việc chung và quy tắc cập nhật tài liệu. Qua bài tập, mình nhận thấy công cụ hợp tác trực tuyến giúp tiết kiệm thời gian họp nhóm trực tiếp và giữ mọi thông tin, phiên bản tài liệu luôn được cập nhật minh bạch. Đây là kỹ năng mình thấy rất cần thiết cho môi trường làm việc nhóm sau này.</span></div>
+        <div class="row"><span class="k">Sản phẩm</span><span><a class="attach" href="https://docs.google.com/document/d/1tP7uO9kaUVaZMfKQKNiPsPNdOupmk0oX/edit?usp=sharing&ouid=107097168109102270095&rtpof=true&sd=true" target="_blank">📎 Bài 4. Giao tiếp và hợp tác trong môi trường số</a></span></div>
+      </div>
+    </div>
+
+    <!-- BÀI 5 -->
+    <div class="file-card">
+      <div class="file-head">
+        <span class="file-icon">05</span>
+        <span class="file-title">Sáng tạo nội dung số</span>
+        <span class="file-path">bai-05/ai-tao-sinh-noi-dung.md</span>
+      </div>
+      <div class="file-body">
+        <div class="row"><span class="k">Mục tiêu</span><span>Sử dụng AI tạo sinh để hỗ trợ sáng tạo nội dung.</span></div>
+        <div class="row"><span class="k">Quá trình</span><span>Mình bắt đầu bằng việc xác định ý tưởng và chủ đề nội dung mà mình muốn sáng tạo, sau đó lựa chọn công cụ AI tạo sinh phù hợp để hỗ trợ. Mình thử nghiệm với nhiều Prompt khác nhau để AI tạo ra bản nháp đầu tiên, rồi từ đó chỉnh sửa, tinh chỉnh dần về nội dung, hình ảnh hoặc bố cục cho sát với ý tưởng ban đầu. Trong quá trình này, mình cũng đối chiếu kết quả AI tạo ra với mục tiêu truyền tải để đảm bảo nội dung chính xác, phù hợp và không vi phạm bản quyền. Mình học được cách kết hợp giữa sự sáng tạo của bản thân và khả năng hỗ trợ của AI để tạo ra sản phẩm hoàn thiện hơn thay vì phụ thuộc hoàn toàn vào máy móc. Sau nhiều lần chỉnh sửa, mình hoàn thiện được sản phẩm nội dung số cuối cùng đạt yêu cầu đề ra. Bài tập này giúp mình hiểu rõ hơn tiềm năng cũng như giới hạn của AI tạo sinh trong việc hỗ trợ sáng tạo nội dung.</span></div>
+        <div class="row"><span class="k">Sản phẩm</span><span><a class="attach" href="https://drive.google.com/file/d/1Nxo7eBMSRZfoc16dWfOPuL0vuV8t_ghL/view?usp=sharing" target="_blank">📎 Bài 5. Sử dụng AI tạo sinh để hỗ trợ sáng tạo nội dung</a></span></div>
+      </div>
+    </div>
+
+    <!-- BÀI 6 -->
+    <div class="file-card">
+      <div class="file-head">
+        <span class="file-icon">06</span>
+        <span class="file-title">An toàn &amp; liêm chính học thuật trong môi trường số</span>
+        <span class="file-path">bai-06/su-dung-ai-co-trach-nhiem.md</span>
+      </div>
+      <div class="file-body">
+        <div class="row"><span class="k">Mục tiêu</span><span>Xây dựng bộ nguyên tắc cá nhân về sử dụng AI có trách nhiệm.</span></div>
+        <div class="row"><span class="k">Quá trình</span><span>Mình bắt đầu bằng việc tìm hiểu các nghiên cứu, bài viết và hướng dẫn liên quan đến việc sử dụng AI có trách nhiệm trong học tập và nghiên cứu. Từ đó, mình tổng hợp lại những rủi ro phổ biến khi lạm dụng AI như sao chép nội dung không kiểm chứng, vi phạm liêm chính học thuật hoặc phụ thuộc quá mức vào công cụ. Mình phân tích thêm các khía cạnh đạo đức cần lưu ý như tính minh bạch khi trích dẫn nguồn AI hỗ trợ, và trách nhiệm kiểm tra lại độ chính xác của thông tin AI cung cấp. Dựa trên những tìm hiểu đó, mình xây dựng một bộ nguyên tắc cá nhân, xác định rõ AI nên được dùng để hỗ trợ ở mức độ nào và ranh giới không nên vượt qua. Mình cũng đối chiếu bộ nguyên tắc này với các tình huống thực tế trong học tập để đảm bảo tính khả thi và phù hợp. Bài tập này giúp mình có cái nhìn rõ ràng và có trách nhiệm hơn khi sử dụng AI trong quá trình học tập và nghiên cứu.</span></div>
+        <div class="row"><span class="k">Sản phẩm</span><span><a class="attach" href="https://drive.google.com/file/d/1RPfSL27Kc5gNnTH_3Zq58VuYvUj49Dnh/view?usp=sharing" target="_blank">📎 Bài 6. Sử dụng AI có trách nhiệm trong học tập và nghiên cứu</a></span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="tongket">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">03</span><span class="sec-title">Trang Tổng kết</span></div>
+    <p class="sec-desc">Nhìn lại toàn bộ hành trình thực hiện dự án Portfolio này.</p>
+
+    <div class="reflect-grid">
+      <div class="reflect-card">
+        <div class="icon">// trải nghiệm</div>
+        <h3>Cảm nhận cá nhân</h3>
+        <p class="content">Làm dự án Portfolio này thật ra khiến mình khá bất ngờ về bản thân, vì trước giờ mình chưa từng nghĩ mấy bài tập nhỏ lẻ trong môn học lại có thể gộp lại thành một sản phẩm "ra hình ra dáng" như vậy. Lúc đầu mình cứ nghĩ đơn giản là copy - paste bài cũ vào cho xong, nhưng khi bắt tay vào biên tập lại thì mới thấy mình phải nhìn lại cả quá trình học của bản thân một cách có hệ thống hơn. Cảm giác sau khi hoàn thành khá là vui và có chút tự hào, vì cuối cùng cũng có một nơi để lưu lại và khoe những gì mình đã làm được trong suốt môn học.</p>
+      </div>
+      <div class="reflect-card">
+        <div class="icon">// kiến thức</div>
+        <h3>Điều quan trọng nhất đã học</h3>
+        <p class="content">Điều mình thấy đáng giá nhất chắc là cách sử dụng AI một cách chủ động và có trách nhiệm, thay vì chỉ dùng như một công cụ trả lời câu hỏi đơn thuần. Mình học được cách viết Prompt sao cho AI hiểu đúng ý mình, biết đánh giá và kiểm chứng lại thông tin AI đưa ra thay vì tin tưởng một cách mù quáng. Ngoài ra, kỹ năng tổ chức dữ liệu, tìm kiếm thông tin học thuật và làm việc nhóm trên môi trường số cũng là những thứ mình nghĩ sẽ dùng được rất nhiều sau này, kể cả khi ra trường đi làm.</p>
+      </div>
+      <div class="reflect-card">
+        <div class="icon">// tâm đắc</div>
+        <h3>Điểm tâm đắc nhất</h3>
+        <p class="content">Nếu phải chọn một bài tâm đắc nhất thì mình nghĩ là bài viết Prompt hiệu quả, vì đây là lúc mình thấy rõ nhất sự khác biệt "trước và sau" khi áp dụng những gì học được. Chỉ cần thay đổi một chút cách đặt câu hỏi mà kết quả AI trả về khác hẳn, chi tiết và đúng ý hơn hẳn so với Prompt ban đầu mình viết theo bản năng. Cảm giác tự mình thử nghiệm, so sánh rồi thấy được sự tiến bộ rõ ràng như vậy khiến mình thấy môn học này thực sự thiết thực chứ không chỉ là lý thuyết suông.</p>
+      </div>
+      <div class="reflect-card">
+        <div class="icon">// thách thức</div>
+        <h3>Thách thức đã gặp phải</h3>
+        <p class="content">Khó khăn lớn nhất với mình chắc là khoản sắp xếp thời gian, vì làm nhóm mà mỗi người một lịch học khác nhau nên để thống nhất tiến độ cũng mất kha khá công sức thương lượng. Bên cạnh đó, việc biên tập lại nội dung từ 6 bài tập rời rạc thành một mạch thống nhất, không bị lặp ý cũng khiến mình phải viết đi viết lại vài lần mới ưng. Nhưng nhờ vậy mà mình học được cách kiên nhẫn hơn, biết chia nhỏ công việc ra để làm dần thay vì để dồn đến sát hạn mới bắt tay vào.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 — Portfolio Kỹ thuật số</span>
+    <span>Nhập môn Công nghệ số &amp; Ứng dụng Trí tuệ nhân tạo</span>
+  </div>
+</footer>
+
+</body>
+</html>
